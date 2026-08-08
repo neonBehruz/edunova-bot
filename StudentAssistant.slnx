@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="StudentAssistant.Bot/StudentAssistant.Bot.csproj" />
+  <Project Path="StudentAssistant.Data/StudentAssistant.Data.csproj" />
+  <Project Path="StudentAssistant.Domain/StudentAssistant.Domain.csproj" />
+  <Project Path="StudentAssistant.Service/StudentAssistant.Service.csproj" />
+  <Project Path="StudentAssistant.Tests/StudentAssistant.Tests.csproj" />
+  <Project Path="StudentAssistant.WebApi/StudentAssistant.WebApi.csproj" />
+</Solution>
