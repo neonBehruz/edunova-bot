@@ -19,7 +19,7 @@ public class LevelHandler
     {
         _sessionManager.SetUserState(userId, UserStateStep.SelectingLevel);
 
-        string text = "🏫 *O'zingiz o'qiydigan Sinfni (1-11 sinf) yoki Darajangizni tanlang:*";
+        string text = "🏫 *O'zingiz o'qiydigan Sinfni (1-11 sinf) tanlang:*";
 
         await botClient.SendMessage(
             chatId: message.Chat.Id,
@@ -29,16 +29,24 @@ public class LevelHandler
             cancellationToken: cancellationToken);
     }
 
-    public bool TryParseLevel(string text, out CefrLevel level)
+    public bool TryParseLevel(string text, out CefrLevel level, out int grade)
     {
-        string cleaned = text.Replace("🏫", "").Replace("🎓", "").Replace("🟢", "").Replace("🟡", "").Replace("🔵", "").Trim();
+        string cleaned = text.Replace("🏫", "").Trim();
 
-        if (cleaned.Contains("1-sinf") || cleaned.Contains("2-sinf") || cleaned.Contains("3-sinf") || cleaned.Contains("4-sinf") || cleaned.Contains("5-sinf") || cleaned.Contains("6-sinf")) { level = CefrLevel.A1; return true; }
-        if (cleaned.Contains("7-sinf") || cleaned.Contains("8-sinf")) { level = CefrLevel.A2; return true; }
-        if (cleaned.Contains("9-sinf")) { level = CefrLevel.B1; return true; }
-        if (cleaned.Contains("10-sinf")) { level = CefrLevel.B2; return true; }
-        if (cleaned.Contains("11-sinf")) { level = CefrLevel.C1; return true; }
+        grade = 1;
+        if (cleaned.Contains("1-sinf")) { grade = 1; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("2-sinf")) { grade = 2; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("3-sinf")) { grade = 3; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("4-sinf")) { grade = 4; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("5-sinf")) { grade = 5; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("6-sinf")) { grade = 6; level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("7-sinf")) { grade = 7; level = CefrLevel.A2; return true; }
+        if (cleaned.Contains("8-sinf")) { grade = 8; level = CefrLevel.A2; return true; }
+        if (cleaned.Contains("9-sinf")) { grade = 9; level = CefrLevel.B1; return true; }
+        if (cleaned.Contains("10-sinf")) { grade = 10; level = CefrLevel.B2; return true; }
+        if (cleaned.Contains("11-sinf")) { grade = 11; level = CefrLevel.C1; return true; }
 
-        return Enum.TryParse(cleaned, true, out level);
+        level = CefrLevel.A1;
+        return false;
     }
 }

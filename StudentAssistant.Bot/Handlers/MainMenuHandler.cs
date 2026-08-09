@@ -132,14 +132,14 @@ public class MainMenuHandler
         switch (currentStep)
         {
             case UserStateStep.SelectingLevel:
-                if (_levelHandler.TryParseLevel(text, out var level))
+                if (_levelHandler.TryParseLevel(text, out var level, out var grade))
                 {
-                    _sessionManager.SetUserLevelSelection(telegramId, level);
+                    _sessionManager.SetUserLevelSelection(telegramId, level, grade);
                     await _subjectHandler.HandlePromptAsync(botClient, message, telegramId, cancellationToken);
                 }
                 else
                 {
-                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi sinf yoki darajalardan birini tanlang!", replyMarkup: LevelKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
+                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi sinflardan birini tanlang!", replyMarkup: LevelKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
                 }
                 break;
 
@@ -152,7 +152,8 @@ public class MainMenuHandler
                 }
                 else
                 {
-                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi fanlardan birini tanlang!", replyMarkup: SubjectKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
+                    var sel = _sessionManager.GetUserSelections(telegramId);
+                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi fanlardan birini tanlang!", replyMarkup: SubjectKeyboard.GetKeyboardForGrade(sel.Grade), cancellationToken: cancellationToken);
                 }
                 break;
 

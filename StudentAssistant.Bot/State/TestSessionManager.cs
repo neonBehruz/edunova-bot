@@ -8,7 +8,7 @@ public class TestSessionManager
 {
     private readonly ConcurrentDictionary<long, TestSession> _activeSessions = new();
     private readonly ConcurrentDictionary<long, UserStateStep> _userStates = new();
-    private readonly ConcurrentDictionary<long, (Domain.Enums.CefrLevel? Level, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count)> _userSelections = new();
+    private readonly ConcurrentDictionary<long, (Domain.Enums.CefrLevel? Level, int Grade, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count)> _userSelections = new();
 
     public void SetUserState(long userId, UserStateStep step)
     {
@@ -20,27 +20,27 @@ public class TestSessionManager
         return _userStates.TryGetValue(userId, out var step) ? step : UserStateStep.MainMenu;
     }
 
-    public void SetUserLevelSelection(long userId, Domain.Enums.CefrLevel level)
+    public void SetUserLevelSelection(long userId, Domain.Enums.CefrLevel level, int grade = 1)
     {
-        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
-        _userSelections[userId] = (level, existing.SubjectId, existing.Difficulty, existing.Count);
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, 1, null, null, null);
+        _userSelections[userId] = (level, grade, existing.SubjectId, existing.Difficulty, existing.Count);
     }
 
     public void SetUserSubjectSelection(long userId, long subjectId)
     {
-        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
-        _userSelections[userId] = (existing.Level, subjectId, existing.Difficulty, existing.Count);
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, 1, null, null, null);
+        _userSelections[userId] = (existing.Level, existing.Grade, subjectId, existing.Difficulty, existing.Count);
     }
 
     public void SetUserDifficultySelection(long userId, Domain.Enums.DifficultyLevel difficulty)
     {
-        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
-        _userSelections[userId] = (existing.Level, existing.SubjectId, difficulty, existing.Count);
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, 1, null, null, null);
+        _userSelections[userId] = (existing.Level, existing.Grade, existing.SubjectId, difficulty, existing.Count);
     }
 
-    public (Domain.Enums.CefrLevel? Level, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count) GetUserSelections(long userId)
+    public (Domain.Enums.CefrLevel? Level, int Grade, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count) GetUserSelections(long userId)
     {
-        return _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
+        return _userSelections.TryGetValue(userId, out var val) ? val : (null, 1, null, null, null);
     }
 
     public void StartSession(TestSession session)
