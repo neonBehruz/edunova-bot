@@ -85,6 +85,8 @@ public class TestHandler
             TelegramChatId = message.Chat.Id,
             AttemptId = attempt.Id,
             SelectedLevel = level,
+            SubjectId = subjectId,
+            SubjectName = selections.SubjectName,
             SelectedDifficulty = difficulty,
             RequestedQuestionCount = questions.Count,
             Questions = questions,
@@ -96,14 +98,16 @@ public class TestHandler
         _sessionManager.StartSession(session);
         _sessionManager.SetUserState(telegramId, UserStateStep.InTest);
 
+        string startMessageText = "🎯 *TEST BOSHLANDI*\n\n" +
+                                 $"📖 *Fan:* {selections.SubjectName}\n" +
+                                 $"📝 *Savollar:* {questions.Count} ta\n" +
+                                 "⏳ *Har bir savol uchun:* 60 soniya\n\n" +
+                                 "🚀 *Boshladik!*\n" +
+                                 "Omad yor bo‘lsin! 🍀";
+
         await botClient.SendMessage(
             chatId: message.Chat.Id,
-            text: $"🚀 *Test Boshlandi!*\n\n" +
-                  $"📌 Daraja: *{level}*\n" +
-                  $"⚡ Qiyinchilik: *{difficulty}*\n" +
-                  $"❓ Savollar soni: *{questions.Count} ta*\n" +
-                  $"⏱️ Taymer: Har bir savolga *60 sekund*\n\n" +
-                  $"Omad yor bo'lsin! 👍",
+            text: startMessageText,
             parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
             cancellationToken: cancellationToken);
 

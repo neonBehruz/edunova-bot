@@ -144,9 +144,9 @@ public class MainMenuHandler
                 break;
 
             case UserStateStep.SelectingSubject:
-                if (_subjectHandler.TryParseSubject(text, out var subjectId))
+                if (_subjectHandler.TryParseSubject(text, out var subjectId, out var subjectName))
                 {
-                    _sessionManager.SetUserSubjectSelection(telegramId, subjectId);
+                    _sessionManager.SetUserSubjectSelection(telegramId, subjectId, subjectName);
                     var sel = _sessionManager.GetUserSelections(telegramId);
                     await _difficultyHandler.HandlePromptAsync(botClient, message, telegramId, sel.Level ?? CefrLevel.A1, cancellationToken);
                 }

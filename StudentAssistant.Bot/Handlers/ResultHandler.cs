@@ -33,25 +33,17 @@ public class ResultHandler
         _sessionManager.RemoveSession(session.UserId);
         _sessionManager.SetUserState(session.UserId, UserStateStep.MainMenu);
 
-        string emoji = result.ScorePercentage >= 80 ? "🏆" : result.ScorePercentage >= 60 ? "👏" : "💪";
-
-        string difficultyUz = result.Difficulty switch
-        {
-            DifficultyLevel.Easy => "Oson",
-            DifficultyLevel.Middle => "O'rta",
-            DifficultyLevel.Hard => "Qiyin",
-            _ => result.Difficulty.ToString()
-        };
-
-        string messageText = $"{emoji} *TEST YAKUNLANDI*\n\n" +
-                             $"📌 Daraja: *{result.Level}*\n" +
-                             $"⚡ Qiyinchilik: *{difficultyUz}*\n" +
-                             $"❓ Jami savollar: *{result.TotalQuestions} ta*\n" +
-                             $"✅ To'g'ri javoblar: *{result.CorrectAnswers} ta*\n" +
-                             $"❌ Noto'g'ri javoblar: *{result.IncorrectAnswers} ta*\n" +
-                             $"📊 Foiz: *{result.ScorePercentage}%*\n" +
-                             $"⏱️ Ketgan vaqt: *{result.DurationSeconds} s*\n" +
-                             $"⭐ Qo'shilgan XP: *+{result.RatingPointsEarned} XP*";
+        string messageText = "🏆 *TEST YAKUNLANDI*\n\n" +
+                             $"📖 *{session.SubjectName}*\n\n" +
+                             "╭──────────────╮\n" +
+                             $"│ 📝 Savollar   {result.TotalQuestions}\n" +
+                             $"│ ✅ To‘g‘ri     {result.CorrectAnswers}\n" +
+                             $"│ ❌ Noto‘g‘ri   {result.IncorrectAnswers}\n" +
+                             $"│ 📊 Natija      {result.ScorePercentage}%\n" +
+                             $"│ ⏱️ Vaqt        {result.DurationSeconds} s\n" +
+                             $"│ ⭐ XP          +{result.RatingPointsEarned}\n" +
+                             "╰──────────────╯\n\n" +
+                             "🚀 *Keyingi testda omad!*";
 
         await botClient.SendMessage(
             chatId: session.TelegramChatId,

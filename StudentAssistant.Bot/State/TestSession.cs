@@ -11,6 +11,7 @@ public class TestSession
     public long AttemptId { get; set; }
     public CefrLevel SelectedLevel { get; set; }
     public long SubjectId { get; set; } = 1;
+    public string SubjectName { get; set; } = "Ingliz tili";
     public DifficultyLevel SelectedDifficulty { get; set; }
     public int RequestedQuestionCount { get; set; }
 

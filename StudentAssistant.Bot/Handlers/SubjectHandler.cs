@@ -29,27 +29,37 @@ public class SubjectHandler
             cancellationToken: cancellationToken);
     }
 
-    public bool TryParseSubject(string input, out long subjectId)
+    public bool TryParseSubject(string input, out long subjectId, out string subjectName)
     {
         string text = input.Trim();
 
-        if (text.Contains("Ingliz tili")) { subjectId = 1; return true; }
-        if (text.Contains("Tarix") || text.Contains("O'zbekiston Tarixi") || text.Contains("Jahon Tarixi")) { subjectId = 2; return true; }
-        if (text.Contains("Matematika") || text.Contains("Algebra") || text.Contains("Geometriya")) { subjectId = 3; return true; }
-        if (text.Contains("Ona tili") || text.Contains("O'zbek tili") || text.Contains("Adabiyot")) { subjectId = 4; return true; }
-        if (text.Contains("Fizika")) { subjectId = 5; return true; }
-        if (text.Contains("Kimyo")) { subjectId = 6; return true; }
-        if (text.Contains("Biologiya") || text.Contains("Botanika") || text.Contains("Tabiiy fan")) { subjectId = 7; return true; }
-        if (text.Contains("Informatika")) { subjectId = 8; return true; }
-        if (text.Contains("Rus tili")) { subjectId = 9; return true; }
-        if (text.Contains("Geografiya")) { subjectId = 10; return true; }
-        if (text.Contains("Tasviriy san'at")) { subjectId = 11; return true; }
-        if (text.Contains("Musiqa")) { subjectId = 12; return true; }
-        if (text.Contains("Texnologiya")) { subjectId = 13; return true; }
-        if (text.Contains("Tarbiya")) { subjectId = 14; return true; }
-        if (text.Contains("Huquq")) { subjectId = 15; return true; }
+        if (text.Contains("Ingliz tili")) { subjectId = 1; subjectName = "Ingliz tili"; return true; }
+        if (text.Contains("O'zbekiston Tarixi")) { subjectId = 2; subjectName = "O'zbekiston Tarixi"; return true; }
+        if (text.Contains("Jahon Tarixi")) { subjectId = 2; subjectName = "Jahon Tarixi"; return true; }
+        if (text.Contains("Tarix")) { subjectId = 2; subjectName = "Tarix"; return true; }
+        if (text.Contains("Algebra")) { subjectId = 3; subjectName = "Algebra"; return true; }
+        if (text.Contains("Geometriya")) { subjectId = 3; subjectName = "Geometriya"; return true; }
+        if (text.Contains("Matematika")) { subjectId = 3; subjectName = "Matematika"; return true; }
+        if (text.Contains("Ona tili va Adabiyot")) { subjectId = 4; subjectName = "Ona tili va Adabiyot"; return true; }
+        if (text.Contains("Ona tili")) { subjectId = 4; subjectName = "Ona tili"; return true; }
+        if (text.Contains("O'zbek tili")) { subjectId = 4; subjectName = "O'zbek tili"; return true; }
+        if (text.Contains("Adabiyot")) { subjectId = 4; subjectName = "Adabiyot"; return true; }
+        if (text.Contains("Fizika")) { subjectId = 5; subjectName = "Fizika"; return true; }
+        if (text.Contains("Kimyo")) { subjectId = 6; subjectName = "Kimyo"; return true; }
+        if (text.Contains("Botanika")) { subjectId = 7; subjectName = "Botanika"; return true; }
+        if (text.Contains("Tabiiy fan")) { subjectId = 7; subjectName = "Tabiiy fan"; return true; }
+        if (text.Contains("Biologiya")) { subjectId = 7; subjectName = "Biologiya"; return true; }
+        if (text.Contains("Informatika")) { subjectId = 8; subjectName = "Informatika"; return true; }
+        if (text.Contains("Rus tili")) { subjectId = 9; subjectName = "Rus tili"; return true; }
+        if (text.Contains("Geografiya")) { subjectId = 10; subjectName = "Geografiya"; return true; }
+        if (text.Contains("Tasviriy san'at")) { subjectId = 11; subjectName = "Tasviriy san'at"; return true; }
+        if (text.Contains("Musiqa")) { subjectId = 12; subjectName = "Musiqa"; return true; }
+        if (text.Contains("Texnologiya")) { subjectId = 13; subjectName = "Texnologiya"; return true; }
+        if (text.Contains("Tarbiya")) { subjectId = 14; subjectName = "Tarbiya"; return true; }
+        if (text.Contains("Huquq")) { subjectId = 15; subjectName = "Huquq"; return true; }
 
         subjectId = 1;
+        subjectName = "Ingliz tili";
         return false;
     }
 }
