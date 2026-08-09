@@ -20,7 +20,7 @@ public class DifficultyHandler
         _sessionManager.SetUserState(userId, UserStateStep.SelectingDifficulty);
         _sessionManager.SetUserLevelSelection(userId, level);
 
-        string text = "🔥 *Qiyinlik darajasini tanlang:*";
+        string text = "🔥 *Qiyinchilik darajasini tanlang:*";
 
         await botClient.SendMessage(
             chatId: message.Chat.Id,
@@ -32,7 +32,12 @@ public class DifficultyHandler
 
     public bool TryParseDifficulty(string text, out DifficultyLevel difficulty)
     {
-        string cleaned = text.Replace("🟢", "").Replace("🟡", "").Replace("🔴", "").Trim();
+        string cleaned = text.Replace("🟢", "").Replace("🟡", "").Replace("🔴", "").Trim().ToLowerInvariant();
+
+        if (cleaned.Contains("oson") || cleaned.Contains("easy")) { difficulty = DifficultyLevel.Easy; return true; }
+        if (cleaned.Contains("o'rta") || cleaned.Contains("orta") || cleaned.Contains("middle")) { difficulty = DifficultyLevel.Middle; return true; }
+        if (cleaned.Contains("qiyin") || cleaned.Contains("hard")) { difficulty = DifficultyLevel.Hard; return true; }
+
         return Enum.TryParse(cleaned, true, out difficulty);
     }
 }

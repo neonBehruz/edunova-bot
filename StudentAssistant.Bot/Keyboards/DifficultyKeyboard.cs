@@ -8,9 +8,9 @@ public static class DifficultyKeyboard
     {
         return new ReplyKeyboardMarkup(new[]
         {
-            new KeyboardButton[] { "🟢 Easy" },
-            new KeyboardButton[] { "🟡 Middle" },
-            new KeyboardButton[] { "🔴 Hard" },
+            new KeyboardButton[] { "🟢 Oson" },
+            new KeyboardButton[] { "🟡 O'rta" },
+            new KeyboardButton[] { "🔴 Qiyin" },
             new KeyboardButton[] { "⬅️ Orqaga" }
         })
         {

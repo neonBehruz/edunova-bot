@@ -35,36 +35,23 @@ public class ResultHandler
 
         string emoji = result.ScorePercentage >= 80 ? "🏆" : result.ScorePercentage >= 60 ? "👏" : "💪";
 
+        string difficultyUz = result.Difficulty switch
+        {
+            DifficultyLevel.Easy => "Oson",
+            DifficultyLevel.Middle => "O'rta",
+            DifficultyLevel.Hard => "Qiyin",
+            _ => result.Difficulty.ToString()
+        };
+
         string messageText = $"{emoji} *TEST YAKUNLANDI*\n\n" +
-                             $"📌 CEFR Daraja: *{result.Level}*\n" +
-                             $"⚡ Qiyinchilik: *{result.Difficulty}*\n" +
+                             $"📌 Daraja: *{result.Level}*\n" +
+                             $"⚡ Qiyinchilik: *{difficultyUz}*\n" +
                              $"❓ Jami savollar: *{result.TotalQuestions} ta*\n" +
                              $"✅ To'g'ri javoblar: *{result.CorrectAnswers} ta*\n" +
                              $"❌ Noto'g'ri javoblar: *{result.IncorrectAnswers} ta*\n" +
                              $"📊 Foiz: *{result.ScorePercentage}%*\n" +
                              $"⏱️ Ketgan vaqt: *{result.DurationSeconds} s*\n" +
-                             $"⭐ Qo'shilgan XP: *+{result.RatingPointsEarned} XP*\n\n" +
-                             $"📝 *SAVOLLAR TAHLILI:*\n";
-
-        int index = 1;
-        foreach (var review in result.QuestionReviews)
-        {
-            string icon = review.IsCorrect ? "✅" : "❌";
-            string safeQ = review.QuestionText.Replace("_", "\\_");
-            string safeAns = (review.YourAnswer ?? "").Replace("_", "\\_");
-            string safeCorr = (review.CorrectAnswer ?? "").Replace("_", "\\_");
-
-            messageText += $"{index}. {icon} {safeQ}\n" +
-                           $"   Sizning javobingiz: {safeAns}\n" +
-                           $"   To'g'ri javob: *{safeCorr}*\n";
-            if (!string.IsNullOrEmpty(review.Explanation))
-            {
-                string safeExp = review.Explanation.Replace("_", "\\_");
-                messageText += $"   💡 *Izoh:* {safeExp}\n";
-            }
-            messageText += "\n";
-            index++;
-        }
+                             $"⭐ Qo'shilgan XP: *+{result.RatingPointsEarned} XP*";
 
         await botClient.SendMessage(
             chatId: session.TelegramChatId,

@@ -1,5 +1,6 @@
 using StudentAssistant.Bot.Keyboards;
 using StudentAssistant.Bot.State;
+using StudentAssistant.Domain.Enums;
 using Telegram.Bot;
 
 namespace StudentAssistant.Bot.Handlers;
@@ -13,10 +14,18 @@ public class QuestionHandler
         var question = session.Questions[session.CurrentQuestionIndex];
         session.QuestionStartedAt = DateTime.UtcNow;
 
-        string header = $"*{session.SelectedLevel} • {session.SelectedDifficulty}*\t\t\t\t\t\t\t\t\t\t*Savol {session.CurrentQuestionIndex + 1} / {session.Questions.Count}*\n\n";
+        string diffUz = session.SelectedDifficulty switch
+        {
+            DifficultyLevel.Easy => "Oson",
+            DifficultyLevel.Middle => "O'rta",
+            DifficultyLevel.Hard => "Qiyin",
+            _ => session.SelectedDifficulty.ToString()
+        };
+
+        string header = $"📌 *{session.SelectedLevel} • {diffUz}*\t\t\t*Savol {session.CurrentQuestionIndex + 1} / {session.Questions.Count}*\n\n";
 
         string safeText = question.Text.Replace("_", "\\_");
-        string questionText = $"{header}Choose the correct answer:\n{safeText}";
+        string questionText = $"{header}❓ *To'g'ri javobni tanlang:*\n{safeText}";
 
         var keyboard = AnswerKeyboard.GetKeyboard(session.AttemptId, question.Id, question.Options.ToList());
 

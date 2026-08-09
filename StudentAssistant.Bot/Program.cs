@@ -81,6 +81,13 @@ public class Program
                     await botClient.SetMyDescription("🎓 EduNova — bilimni sinash va rivojlantirish uchun aqlli test bot. A1–C2 darajalar, Easy/Middle/Hard qiyinliklar, vaqtli testlar, natijalar va reyting tizimi.");
                     await botClient.SetMyShortDescription("🎓 Learn. Test. Improve. 🚀");
 
+                    logger.LogInformation("Setting Telegram Chat Menu Button...");
+                    await botClient.SetChatMenuButton(menuButton: new Telegram.Bot.Types.MenuButtonWebApp
+                    {
+                        Text = "🎓 Mini App",
+                        WebApp = new Telegram.Bot.Types.WebAppInfo { Url = "https://edunova-bot.onrender.com" }
+                    });
+
                     string profilePath = Path.Combine(AppContext.BaseDirectory, "profile.jpg");
                     if (File.Exists(profilePath))
                     {
