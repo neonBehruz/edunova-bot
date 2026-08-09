@@ -19,7 +19,7 @@ public class LevelHandler
     {
         _sessionManager.SetUserState(userId, UserStateStep.SelectingLevel);
 
-        string text = "🏫 *O'zingiz o'qiydigan Sinf / Darajangizni tanlang:*";
+        string text = "🏫 *O'zingiz o'qiydigan Sinfni (1-11 sinf) yoki Darajangizni tanlang:*";
 
         await botClient.SendMessage(
             chatId: message.Chat.Id,
@@ -33,7 +33,7 @@ public class LevelHandler
     {
         string cleaned = text.Replace("🏫", "").Replace("🎓", "").Replace("🟢", "").Replace("🟡", "").Replace("🔵", "").Trim();
 
-        if (cleaned.Contains("5-sinf") || cleaned.Contains("6-sinf")) { level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("1-sinf") || cleaned.Contains("2-sinf") || cleaned.Contains("3-sinf") || cleaned.Contains("4-sinf") || cleaned.Contains("5-sinf") || cleaned.Contains("6-sinf")) { level = CefrLevel.A1; return true; }
         if (cleaned.Contains("7-sinf") || cleaned.Contains("8-sinf")) { level = CefrLevel.A2; return true; }
         if (cleaned.Contains("9-sinf")) { level = CefrLevel.B1; return true; }
         if (cleaned.Contains("10-sinf")) { level = CefrLevel.B2; return true; }

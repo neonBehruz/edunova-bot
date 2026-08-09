@@ -10,6 +10,7 @@ using StudentAssistant.Bot.Handlers;
 using StudentAssistant.Bot.Services;
 using StudentAssistant.Bot.State;
 using StudentAssistant.Data.Context;
+using StudentAssistant.Data.Seed;
 using Telegram.Bot;
 
 namespace StudentAssistant.Bot;
@@ -70,9 +71,7 @@ public class Program
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             try
             {
-                logger.LogInformation("Ensuring database is created and seeded...");
-                await dbContext.Database.EnsureCreatedAsync();
-                logger.LogInformation("Database initialization complete.");
+                await DbInitializer.InitializeAndSeedAsync(dbContext, logger);
 
                 var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
                 var botSettings = scope.ServiceProvider.GetRequiredService<BotSettings>();
