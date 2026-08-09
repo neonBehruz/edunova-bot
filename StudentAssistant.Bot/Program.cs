@@ -56,6 +56,7 @@ public class Program
                 services.AddScoped<MainMenuHandler>();
 
                 // Background Hosted Services
+                services.AddHostedService<HttpHealthCheckWorker>();
                 services.AddHostedService<QuestionTimerWorker>();
                 services.AddHostedService<TelegramBotService>();
             })
@@ -68,7 +69,7 @@ public class Program
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             try
             {
-                logger.LogInformation("Ensuring SQLite database is created and seeded...");
+                logger.LogInformation("Ensuring database is created and seeded...");
                 await dbContext.Database.EnsureCreatedAsync();
                 logger.LogInformation("Database initialization complete.");
 

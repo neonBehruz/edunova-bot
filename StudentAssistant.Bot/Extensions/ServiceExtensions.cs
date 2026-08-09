@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudentAssistant.Data.Context;
+using StudentAssistant.Data.Extensions;
 using StudentAssistant.Data.Interfaces;
 using StudentAssistant.Data.Repositories;
 using StudentAssistant.Service.Interfaces;
@@ -13,10 +14,8 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // EF Core SQLite DbContext
-        string connectionString = configuration.GetConnectionString("DefaultConnection") ?? "Data Source=student_assistant.db";
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite(connectionString));
+        // EF Core DbContext (Auto SQLite or PostgreSQL)
+        services.AddStudentAssistantDbContext(configuration);
 
         // Generic Repositories
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

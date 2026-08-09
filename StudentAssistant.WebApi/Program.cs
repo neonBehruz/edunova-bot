@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentAssistant.Data.Context;
+using StudentAssistant.Data.Extensions;
 using StudentAssistant.Data.Interfaces;
 using StudentAssistant.Data.Repositories;
 using StudentAssistant.Service.Interfaces;
@@ -19,10 +20,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddOpenApi();
 
-        // Database context
-        string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=student_assistant.db";
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite(connectionString));
+        // Database context (Auto SQLite or PostgreSQL)
+        builder.Services.AddStudentAssistantDbContext(builder.Configuration);
 
         // Repositories
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -1,0 +1,14 @@
+services:
+  # 🤖 Telegram Bot 24/7 Background Worker Service
+  - type: worker
+    name: edunova-telegram-bot
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: BotSettings__Token
+        sync: false # Set your Telegram Bot Token in Render Dashboard
+      - key: ConnectionStrings__DefaultConnection
+        sync: false # Set your PostgreSQL Connection String (e.g. from Neon.tech / Supabase)
+      - key: BotSettings__QuestionTimeoutSeconds
+        value: "60"
