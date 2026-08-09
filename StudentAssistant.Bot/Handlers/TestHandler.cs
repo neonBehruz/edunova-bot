@@ -59,7 +59,8 @@ public class TestHandler
         {
             await botClient.SendMessage(
                 chatId: message.Chat.Id,
-                text: "❌ Afsuski, bu daraja va qiyinchilik uchun hozircha savollar mavjud emas.",
+                text: "⚠️ *Siz bu bo‘limdagi barcha mavjud savollarni ishlab bo‘lgansiz.*\n\nYangi savollar qo‘shilgandan keyin yana test ishlashingiz mumkin.",
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
                 replyMarkup: MainMenuKeyboard.GetKeyboard(),
                 cancellationToken: cancellationToken);
             _sessionManager.SetUserState(telegramId, UserStateStep.MainMenu);

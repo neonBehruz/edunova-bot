@@ -6,59 +6,108 @@ public static class SubjectKeyboard
 {
     public static ReplyKeyboardMarkup GetKeyboardForGrade(int gradeNumber)
     {
-        if (gradeNumber <= 4)
+        var rows = new List<KeyboardButton[]>();
+
+        switch (gradeNumber)
         {
-            return new ReplyKeyboardMarkup(new[]
-            {
-                new KeyboardButton[] { "📚 Ona tili", "📐 Matematika" },
-                new KeyboardButton[] { "🇬🇧 Ingliz tili", "🇷🇺 Rus tili" },
-                new KeyboardButton[] { "🌿 Tabiiy fan", "🎨 Tasviriy san'at" },
-                new KeyboardButton[] { "🎵 Musiqa", "🛠️ Texnologiya" },
-                new KeyboardButton[] { "🕊️ Tarbiya", "⬅️ Orqaga" }
-            })
-            { ResizeKeyboard = true };
+            case 1:
+                rows.Add(new KeyboardButton[] { "📚 Alifbe", "✍️ Yozuv" });
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 O‘qish savodxonligi" });
+                rows.Add(new KeyboardButton[] { "📐 Matematika", "🌿 Tabiiy fan" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "💻 Informatika", "🎵 Musiqa" });
+                rows.Add(new KeyboardButton[] { "🎨 Tasviriy san’at", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "⚽ Jismoniy tarbiya", "⬅️ Orqaga" });
+                break;
+
+            case 2:
+            case 3:
+            case 4:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 O‘qish savodxonligi" });
+                rows.Add(new KeyboardButton[] { "📐 Matematika", "🌿 Tabiiy fan" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "💻 Informatika", "🎵 Musiqa" });
+                rows.Add(new KeyboardButton[] { "🎨 Tasviriy san’at", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "⚽ Jismoniy tarbiya", "⬅️ Orqaga" });
+                break;
+
+            case 5:
+            case 6:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Matematika", "📜 Tarix" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "💻 Informatika" });
+                rows.Add(new KeyboardButton[] { "🌿 Tabiiy fan", "🎵 Musiqa" });
+                rows.Add(new KeyboardButton[] { "🎨 Tasviriy san’at", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "⚽ Jismoniy tarbiya", "⬅️ Orqaga" });
+                break;
+
+            case 7:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Algebra", "📏 Geometriya" });
+                rows.Add(new KeyboardButton[] { "📜 O‘zbekiston tarixi", "🌐 Jahon tarixi" });
+                rows.Add(new KeyboardButton[] { "⚡ Fizika", "🌿 Biologiya" });
+                rows.Add(new KeyboardButton[] { "🌍 Geografiya", "💻 Informatika" });
+                rows.Add(new KeyboardButton[] { "🎨 Tasviriy san’at", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "⚽ Jismoniy tarbiya" });
+                rows.Add(new KeyboardButton[] { "⬅️ Orqaga" });
+                break;
+
+            case 8:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Algebra", "📏 Geometriya" });
+                rows.Add(new KeyboardButton[] { "📜 O‘zbekiston tarixi", "🌐 Jahon tarixi" });
+                rows.Add(new KeyboardButton[] { "⚡ Fizika", "🧪 Kimyo" });
+                rows.Add(new KeyboardButton[] { "🌿 Biologiya", "🌍 Geografiya" });
+                rows.Add(new KeyboardButton[] { "💻 Informatika", "💰 Iqtisodiy bilim asoslari" });
+                rows.Add(new KeyboardButton[] { "📐 Chizmachilik", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "⚽ Jismoniy tarbiya" });
+                rows.Add(new KeyboardButton[] { "⬅️ Orqaga" });
+                break;
+
+            case 9:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Algebra", "📏 Geometriya" });
+                rows.Add(new KeyboardButton[] { "📜 O‘zbekiston tarixi", "🌐 Jahon tarixi" });
+                rows.Add(new KeyboardButton[] { "⚡ Fizika", "🧪 Kimyo" });
+                rows.Add(new KeyboardButton[] { "🌿 Biologiya", "🌍 Geografiya" });
+                rows.Add(new KeyboardButton[] { "⚖️ Davlat va huquq asoslari", "💰 Iqtisodiy bilim asoslari" });
+                rows.Add(new KeyboardButton[] { "📐 Chizmachilik", "💻 Informatika" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "⚽ Jismoniy tarbiya" });
+                rows.Add(new KeyboardButton[] { "⬅️ Orqaga" });
+                break;
+
+            case 10:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Algebra va matematik analiz", "📏 Geometriya" });
+                rows.Add(new KeyboardButton[] { "📜 O‘zbekiston tarixi", "🌐 Jahon tarixi" });
+                rows.Add(new KeyboardButton[] { "⚡ Fizika", "🧪 Kimyo" });
+                rows.Add(new KeyboardButton[] { "🌿 Biologiya", "🌍 Geografiya" });
+                rows.Add(new KeyboardButton[] { "⚖️ Davlat va huquq asoslari", "💼 Tadbirkorlik asoslari" });
+                rows.Add(new KeyboardButton[] { "💻 Informatika", "🛠️ Texnologiya" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "⚽ Jismoniy tarbiya" });
+                rows.Add(new KeyboardButton[] { "⬅️ Orqaga" });
+                break;
+
+            case 11:
+            default:
+                rows.Add(new KeyboardButton[] { "📚 Ona tili", "📖 Adabiyot" });
+                rows.Add(new KeyboardButton[] { "🇷🇺 Rus tili", "🇬🇧 Chet tili" });
+                rows.Add(new KeyboardButton[] { "📐 Algebra va matematik analiz", "📏 Geometriya" });
+                rows.Add(new KeyboardButton[] { "📜 O‘zbekiston tarixi", "🌐 Jahon tarixi" });
+                rows.Add(new KeyboardButton[] { "⚡ Fizika", "🪐 Astronomiya" });
+                rows.Add(new KeyboardButton[] { "🧪 Kimyo", "🌿 Biologiya" });
+                rows.Add(new KeyboardButton[] { "🌍 Geografiya", "⚖️ Davlat va huquq asoslari" });
+                rows.Add(new KeyboardButton[] { "💼 Tadbirkorlik asoslari", "💻 Informatika" });
+                rows.Add(new KeyboardButton[] { "🕊️ Tarbiya", "⚽ Jismoniy tarbiya" });
+                rows.Add(new KeyboardButton[] { "⬅️ Orqaga" });
+                break;
         }
-        else if (gradeNumber <= 6)
-        {
-            return new ReplyKeyboardMarkup(new[]
-            {
-                new KeyboardButton[] { "📚 Ona tili va Adabiyot", "📐 Matematika" },
-                new KeyboardButton[] { "📜 Tarix", "🌍 Geografiya" },
-                new KeyboardButton[] { "🌿 Botanika", "💻 Informatika" },
-                new KeyboardButton[] { "🇬🇧 Ingliz tili", "🇷🇺 Rus tili" },
-                new KeyboardButton[] { "🎨 Tasviriy san'at", "🎵 Musiqa" },
-                new KeyboardButton[] { "🛠️ Texnologiya", "🕊️ Tarbiya" },
-                new KeyboardButton[] { "⬅️ Orqaga" }
-            })
-            { ResizeKeyboard = true };
-        }
-        else if (gradeNumber <= 9)
-        {
-            return new ReplyKeyboardMarkup(new[]
-            {
-                new KeyboardButton[] { "📚 Ona tili va Adabiyot", "📐 Algebra" },
-                new KeyboardButton[] { "📏 Geometriya", "📜 Tarix" },
-                new KeyboardButton[] { "🌍 Geografiya", "⚡ Fizika" },
-                new KeyboardButton[] { "🧪 Kimyo", "🌿 Biologiya" },
-                new KeyboardButton[] { "💻 Informatika", "🇬🇧 Ingliz tili" },
-                new KeyboardButton[] { "🇷🇺 Rus tili", "⚖️ Huquq" },
-                new KeyboardButton[] { "🕊️ Tarbiya", "⬅️ Orqaga" }
-            })
-            { ResizeKeyboard = true };
-        }
-        else // 10-11 sinf
-        {
-            return new ReplyKeyboardMarkup(new[]
-            {
-                new KeyboardButton[] { "📚 Ona tili va Adabiyot", "📐 Algebra" },
-                new KeyboardButton[] { "📏 Geometriya", "📜 O'zbekiston Tarixi" },
-                new KeyboardButton[] { "🌐 Jahon Tarixi", "🌍 Geografiya" },
-                new KeyboardButton[] { "⚡ Fizika", "🧪 Kimyo" },
-                new KeyboardButton[] { "🌿 Biologiya", "💻 Informatika" },
-                new KeyboardButton[] { "🇬🇧 Ingliz tili", "🇷🇺 Rus tili" },
-                new KeyboardButton[] { "⚖️ Huquq", "⬅️ Orqaga" }
-            })
-            { ResizeKeyboard = true };
-        }
+
+        return new ReplyKeyboardMarkup(rows) { ResizeKeyboard = true };
     }
 }
