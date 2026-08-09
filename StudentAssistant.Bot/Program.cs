@@ -45,6 +45,7 @@ public class Program
                 // Handlers
                 services.AddScoped<StartHandler>();
                 services.AddScoped<LevelHandler>();
+                services.AddScoped<SubjectHandler>();
                 services.AddScoped<DifficultyHandler>();
                 services.AddScoped<TestHandler>();
                 services.AddScoped<QuestionHandler>();

@@ -19,7 +19,7 @@ public class LevelHandler
     {
         _sessionManager.SetUserState(userId, UserStateStep.SelectingLevel);
 
-        string text = "🎯 *Darajangizni tanlang:*";
+        string text = "🏫 *O'zingiz o'qiydigan Sinf / Darajangizni tanlang:*";
 
         await botClient.SendMessage(
             chatId: message.Chat.Id,
@@ -31,7 +31,14 @@ public class LevelHandler
 
     public bool TryParseLevel(string text, out CefrLevel level)
     {
-        string cleaned = text.Replace("🟢", "").Replace("🟡", "").Replace("🔵", "").Trim();
+        string cleaned = text.Replace("🏫", "").Replace("🎓", "").Replace("🟢", "").Replace("🟡", "").Replace("🔵", "").Trim();
+
+        if (cleaned.Contains("5-sinf") || cleaned.Contains("6-sinf")) { level = CefrLevel.A1; return true; }
+        if (cleaned.Contains("7-sinf") || cleaned.Contains("8-sinf")) { level = CefrLevel.A2; return true; }
+        if (cleaned.Contains("9-sinf")) { level = CefrLevel.B1; return true; }
+        if (cleaned.Contains("10-sinf")) { level = CefrLevel.B2; return true; }
+        if (cleaned.Contains("11-sinf")) { level = CefrLevel.C1; return true; }
+
         return Enum.TryParse(cleaned, true, out level);
     }
 }

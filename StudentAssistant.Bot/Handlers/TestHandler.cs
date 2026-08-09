@@ -50,9 +50,10 @@ public class TestHandler
         var selections = _sessionManager.GetUserSelections(telegramId);
         var level = selections.Level ?? CefrLevel.A1;
         var difficulty = selections.Difficulty ?? DifficultyLevel.Easy;
+        long subjectId = selections.SubjectId ?? 1;
 
         // 1. Generate Questions
-        var questions = await _generatorService.GenerateQuestionsAsync(user.Id, 1, level, difficulty, count);
+        var questions = await _generatorService.GenerateQuestionsAsync(user.Id, subjectId, level, difficulty, count);
 
         if (!questions.Any())
         {
@@ -69,7 +70,7 @@ public class TestHandler
         var startDto = new StartTestDto
         {
             UserId = user.Id,
-            SubjectId = 1,
+            SubjectId = subjectId,
             Level = level,
             Difficulty = difficulty,
             QuestionCount = questions.Count

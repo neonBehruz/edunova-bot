@@ -5,7 +5,8 @@ public enum UserStateStep
     None = 0,
     MainMenu = 1,
     SelectingLevel = 2,
-    SelectingDifficulty = 3,
-    SelectingQuestionCount = 4,
-    InTest = 5
+    SelectingSubject = 3,
+    SelectingDifficulty = 4,
+    SelectingQuestionCount = 5,
+    InTest = 6
 }

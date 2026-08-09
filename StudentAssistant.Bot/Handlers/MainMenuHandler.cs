@@ -12,6 +12,7 @@ public class MainMenuHandler
     private readonly TestSessionManager _sessionManager;
     private readonly StartHandler _startHandler;
     private readonly LevelHandler _levelHandler;
+    private readonly SubjectHandler _subjectHandler;
     private readonly DifficultyHandler _difficultyHandler;
     private readonly TestHandler _testHandler;
     private readonly ResultHandler _resultHandler;
@@ -24,6 +25,7 @@ public class MainMenuHandler
         TestSessionManager sessionManager,
         StartHandler startHandler,
         LevelHandler levelHandler,
+        SubjectHandler subjectHandler,
         DifficultyHandler difficultyHandler,
         TestHandler testHandler,
         ResultHandler resultHandler,
@@ -35,6 +37,7 @@ public class MainMenuHandler
         _sessionManager = sessionManager;
         _startHandler = startHandler;
         _levelHandler = levelHandler;
+        _subjectHandler = subjectHandler;
         _difficultyHandler = difficultyHandler;
         _testHandler = testHandler;
         _resultHandler = resultHandler;
@@ -78,13 +81,12 @@ public class MainMenuHandler
                     await _startHandler.HandleAsync(botClient, message, cancellationToken);
                     break;
 
-                case UserStateStep.SelectingDifficulty:
+                case UserStateStep.SelectingSubject:
                     await _levelHandler.HandlePromptAsync(botClient, message, telegramId, cancellationToken);
                     break;
 
-                case UserStateStep.SelectingQuestionCount:
-                    var sel = _sessionManager.GetUserSelections(telegramId);
-                    await _difficultyHandler.HandlePromptAsync(botClient, message, telegramId, sel.Level ?? CefrLevel.A1, cancellationToken);
+                case UserStateStep.SelectingDifficulty:
+                    await _subjectHandler.HandlePromptAsync(botClient, message, telegramId, cancellationToken);
                     break;
 
                 default:
@@ -132,11 +134,25 @@ public class MainMenuHandler
             case UserStateStep.SelectingLevel:
                 if (_levelHandler.TryParseLevel(text, out var level))
                 {
-                    await _difficultyHandler.HandlePromptAsync(botClient, message, telegramId, level, cancellationToken);
+                    _sessionManager.SetUserLevelSelection(telegramId, level);
+                    await _subjectHandler.HandlePromptAsync(botClient, message, telegramId, cancellationToken);
                 }
                 else
                 {
-                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi darajalardan birini tanlang!", replyMarkup: LevelKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
+                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi sinf yoki darajalardan birini tanlang!", replyMarkup: LevelKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
+                }
+                break;
+
+            case UserStateStep.SelectingSubject:
+                if (_subjectHandler.TryParseSubject(text, out var subjectId))
+                {
+                    _sessionManager.SetUserSubjectSelection(telegramId, subjectId);
+                    var sel = _sessionManager.GetUserSelections(telegramId);
+                    await _difficultyHandler.HandlePromptAsync(botClient, message, telegramId, sel.Level ?? CefrLevel.A1, cancellationToken);
+                }
+                else
+                {
+                    await botClient.SendMessage(message.Chat.Id, "⚠️ Iltimos, pastdagi fanlardan birini tanlang!", replyMarkup: SubjectKeyboard.GetKeyboard(), cancellationToken: cancellationToken);
                 }
                 break;
 

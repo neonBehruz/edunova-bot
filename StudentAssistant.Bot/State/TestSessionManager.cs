@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections.Concurrent;
 
 namespace StudentAssistant.Bot.State;
@@ -6,7 +8,7 @@ public class TestSessionManager
 {
     private readonly ConcurrentDictionary<long, TestSession> _activeSessions = new();
     private readonly ConcurrentDictionary<long, UserStateStep> _userStates = new();
-    private readonly ConcurrentDictionary<long, (Domain.Enums.CefrLevel? Level, Domain.Enums.DifficultyLevel? Difficulty, int? Count)> _userSelections = new();
+    private readonly ConcurrentDictionary<long, (Domain.Enums.CefrLevel? Level, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count)> _userSelections = new();
 
     public void SetUserState(long userId, UserStateStep step)
     {
@@ -20,19 +22,25 @@ public class TestSessionManager
 
     public void SetUserLevelSelection(long userId, Domain.Enums.CefrLevel level)
     {
-        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null);
-        _userSelections[userId] = (level, existing.Difficulty, existing.Count);
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
+        _userSelections[userId] = (level, existing.SubjectId, existing.Difficulty, existing.Count);
+    }
+
+    public void SetUserSubjectSelection(long userId, long subjectId)
+    {
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
+        _userSelections[userId] = (existing.Level, subjectId, existing.Difficulty, existing.Count);
     }
 
     public void SetUserDifficultySelection(long userId, Domain.Enums.DifficultyLevel difficulty)
     {
-        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null);
-        _userSelections[userId] = (existing.Level, difficulty, existing.Count);
+        var existing = _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
+        _userSelections[userId] = (existing.Level, existing.SubjectId, difficulty, existing.Count);
     }
 
-    public (Domain.Enums.CefrLevel? Level, Domain.Enums.DifficultyLevel? Difficulty, int? Count) GetUserSelections(long userId)
+    public (Domain.Enums.CefrLevel? Level, long? SubjectId, Domain.Enums.DifficultyLevel? Difficulty, int? Count) GetUserSelections(long userId)
     {
-        return _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null);
+        return _userSelections.TryGetValue(userId, out var val) ? val : (null, null, null, null);
     }
 
     public void StartSession(TestSession session)
